@@ -1,0 +1,35 @@
+{
+  "correct_page": 1,
+  "data": [
+    {
+      "id": "1",
+      "rota": {
+        "saida": "foo",
+        "destino": "doo"
+      },
+      "duracao": "xxx",
+      "distancia": "xxx",
+      "valores":{
+          "combustivel":"xxx",
+          "pedagio":"xxx",
+          "total":"xxxxx"
+      }
+    },{
+        "id": "2",
+        "rota": {
+          "saida": "foo",
+          "destino": "doo"
+        },
+        "duracao": "xxx",
+        "distancia": "xxx",
+        "valores":{
+            "combustivel":"xxx",
+            "pedagio":"xxx",
+            "total":"xxxxx"
+        }
+    }
+  ],
+  "links":{
+      "self":"https://visomes.com.br/api/get-rotas/<this:saida>/<this:destino>/<this:valorCombustivel>/<this:consumoCombustivel>/"
+  }
+}
