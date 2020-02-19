@@ -1,5 +1,5 @@
 from flask import Flask, make_response
-from web_scraping import postContent
+from PostElements import PostElements
 
 flaskApp = Flask(__name__)
 flaskApp.config["DEBUG"] = True
@@ -10,16 +10,16 @@ if __name__ == "__main__":
         methods=['GET']
     )
     def rotas(saida,
-                 destino,
-                 valorCombutivel,
-                 consumoDeCombustivel):
+              destino,
+              valorCombutivel,
+              consumoCombustivel):
 
         headers = {"Content-Type": "application/json",
                    "Access-Control-Allow-Origin": "*",
                    "Access-Control-Allow-Methods": "GET"}
 
-        content = postContent(saida, destino, valorCombustivel, consumoCombustivel)
+        content = PostElements(saida, destino, valorCombutivel, consumoCombustivel)
 
         return make_response(content, 200, headers=headers)
-    
+
     flaskApp.run()
