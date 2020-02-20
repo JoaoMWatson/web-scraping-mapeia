@@ -1,6 +1,5 @@
 import time
-import requests
-import pandas as pd
+import json
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
@@ -30,10 +29,10 @@ class PostElements():
         self.__driver.get(self.url)
         time.sleep(3)
 
-        self._setElements()
+        self.__setElements()
 
 
-    def _setElements(self):
+    def __setElements(self):
         try:
             self.__elements.append(
                 self.__driver.find_element_by_id("origin"))
@@ -65,6 +64,23 @@ class PostElements():
         
         calcButtom = self.__driver.find_element_by_id("calc")
         calcButtom.send_keys(Keys.ENTER)
+        time.sleep(2)
 
 
-PostElements("São Paulo", "Ceará", "1.00", "10.00")
+
+    def postElements(self):
+        rotaResult = {}
+
+        rotaResult["timeValue"] = self.__driver.find_element_by_id("time-value").text
+        rotaResult["distValue"] = self.__driver.find_element_by_id("dist-value").text
+        rotaResult["fuelValue"] = self.__driver.find_element_by_id("fuel-value").text
+        rotaResult["tollValue"] = self.__driver.find_element_by_id("toll-value").text
+        rotaResult["totalValue"] = self.__driver.find_element_by_id("total-value").text
+
+        
+        resp = json.dumps(rotaResult)
+
+        self.__driver.quit()
+        
+
+# PostElements("São Paulo", "Ceará", "1.00", "10.00")
