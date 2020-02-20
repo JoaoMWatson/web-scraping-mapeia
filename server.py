@@ -1,26 +1,27 @@
-from flask import Flask, make_response
+from flask import Flask, Response, request, make_response
 from PostElements import PostElements
 
 flaskApp = Flask(__name__)
 
 if __name__ == "__main__":
     @flaskApp.route(
-        "/api/rotas/<saida>/<destino>/<valorCombustivel>/<consumoCombustivel>/",
+        "/api/rotas/",
         methods=['GET']
     )
-    def rotas(saida, destino, valorCombustivel, consumoCombustivel):
+    def rotas():
+        getJsonBody = request.get_json(force=True)
 
-        headers = {"Content-Type": "application/json",
-                   "Access-Control-Allow-Origin": "*",
-                   "Access-Control-Allow-Methods": "GET"}
+        saida = getJsonBody['saida']
+        destino = getJsonBody['destino']
+        valorCombustivel = getJsonBody['valorCombustivel']
+        consumoCombustivel = getJsonBody['consumoCombustivel']
 
-        content = PostElements(
-            saida, destino, valorCombustivel, consumoCombustivel)
+        postElements = PostElements(saida, destino, valorCombustivel, consumoCombustivel)
 
-        response_json = content.postElements()
+        clientResponse = postElements.postElements()
 
-        response = flaskApp.make_response(response_json, 200)
+        resp = make_response(clientResponse, 200)
 
-        return response
+        return resp
 
     flaskApp.run()

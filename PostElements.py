@@ -1,10 +1,8 @@
 import time
 import json
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
-
 
 class PostElements():
     def __init__(self,
@@ -24,10 +22,9 @@ class PostElements():
         options = Options()
 
         options.headless = True
-        self.__driver = webdriver.Firefox()
+        self.__driver = webdriver.Firefox(options=options)
 
         self.__driver.get(self.url)
-        time.sleep(3)
 
         self.__setElements()
 
@@ -52,9 +49,6 @@ class PostElements():
             raise Exception
             print(f"[{e.args}]")
 
-        # finally:
-            # self.__driver.quit()
-
     def __writeIntoElements(self, *elementValues):
 
         for _ in range(0, 4):
@@ -64,7 +58,7 @@ class PostElements():
         
         calcButtom = self.__driver.find_element_by_id("calc")
         calcButtom.send_keys(Keys.ENTER)
-        time.sleep(2)
+        time.sleep(3)
 
 
 
@@ -80,7 +74,7 @@ class PostElements():
         
         resp = json.dumps(rotaResult)
 
+        return resp
+
         self.__driver.quit()
         
-
-# PostElements("São Paulo", "Ceará", "1.00", "10.00")
